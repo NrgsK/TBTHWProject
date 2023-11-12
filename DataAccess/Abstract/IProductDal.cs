@@ -7,17 +7,12 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Abstract
 {
-    public interface IProductDal
+    public interface IProductDal:IEntityRepository<Product> //IEntityRepository Product için yapılandı
     {
         //interface'nin metotları default public
         // Add reference
         //Circular dependencies
         //Eğer alternatif bir teknoloji kullanılıyorsa klasörle (concrete)
-        List<Product> GetAll();
-        void Add(Product product);
-        void Update(Product product);
-        void Delete(Product product);
-
-        List<Product> GetByAllCategory(int categoryId);  //Ürünleri kategoriye göre listeler
+        
     }
 }
