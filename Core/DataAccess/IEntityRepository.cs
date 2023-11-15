@@ -1,5 +1,4 @@
-﻿using Entities.Abstract;
-using Entities.Concrete;
+﻿using Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccess.Abstract
+namespace Core.DataAccess
 {
     //Generic constraint - kısıt
     //class : referans tip
@@ -25,3 +24,4 @@ namespace DataAccess.Abstract
         //Expression<Func<T, bool>> filter = null -- Filtreleme yapar. Delege
     }
 }
+//Core katmanı diğer katmanları referans ALMAZ!!!
