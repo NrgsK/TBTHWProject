@@ -1,5 +1,6 @@
 ﻿using Core.DataAccess;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace DataAccess.Abstract
         // Add reference
         //Circular dependencies
         //Eğer alternatif bir teknoloji kullanılıyorsa klasörle (concrete)
-        
+        List<ProductDetailDto> GetProductDetails();
     }
 }
 
