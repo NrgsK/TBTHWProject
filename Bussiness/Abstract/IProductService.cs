@@ -13,11 +13,11 @@ namespace Bussiness.Abstract
     {
         // Bussiness katmanında kullanacağımız servis kodları
 
-        List<Product> GetAll();
-        List<Product> GetAllByCategoryId(int id); //CategoryId'ye göre getirir
-        List<Product> GetAllByUnitPrice(decimal min, decimal max);
-        List<ProductDetailDto> GetProductDetails();
-        Product GetById(int productId);
+        IDataResult<List<Product>> GetAll();
+        IDataResult<List<Product>> GetAllByCategoryId(int id); //CategoryId'ye göre getirir
+        IDataResult<List<Product>> GetAllByUnitPrice(decimal min, decimal max);
+        IDataResult<List<ProductDetailDto>> GetProductDetails();
+        IDataResult<Product> GetById(int productId);
         IResult Add(Product product);
 
     }
