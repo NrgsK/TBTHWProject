@@ -12,6 +12,8 @@ internal class Program
 
         // Add services to the container.
 
+        //Autofac, Ninject, CastWindsor, StructureMap, LightInject, DryInject --> IoC Container
+        //AOP
         builder.Services.AddControllers();
         builder.Services.AddSingleton<IProductService, ProductManager>();
         //AddSingleton - arkaplanda referans oluþturuyor

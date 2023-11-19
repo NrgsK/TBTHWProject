@@ -3,6 +3,7 @@ using Bussiness.Concrete;
 using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
@@ -26,7 +27,7 @@ namespace WebAPI.Controllers
         //Katmanların somutuna bağlı olmamalı.
 
         [HttpGet]
-        public List<Product> Get()
+        public IActionResult Get()
         {
             /*
                 return new List<Product>
@@ -39,7 +40,21 @@ namespace WebAPI.Controllers
             //Dependency chain -- Bağımlılık zinciri
             //IProductService productService = new ProductManager(new EfProductDal()); 
             var result = _productService.GetAll();  //IDataResult döndürür.
-            return result.Data;
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+        [HttpPost]
+        public IActionResult Post(Product product)
+        {
+            var result = _productService.Add(product);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
         }
     }
 }
