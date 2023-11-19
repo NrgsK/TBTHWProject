@@ -20,5 +20,8 @@ namespace Bussiness.Abstract
         IDataResult<Product> GetById(int productId);
         IResult Add(Product product);
 
+        //Restful --> HTTP(internet protokolü) --> 
+        //Sisteme istekte bulunuyoruz
+        //Controller : Client lar bize nasıl istekte bulunabiliri kontrol eder.
     }
 }
