@@ -6,7 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using IInterceptor = Microsoft.EntityFrameworkCore.Diagnostics.IInterceptor;
+using IInterceptor = Castle.DynamicProxy.IInterceptor;
 
 namespace Core.Utilities.Interceptors
 {
@@ -23,9 +23,6 @@ namespace Core.Utilities.Interceptors
             return (IInterceptor[])classAttributes.OrderBy(x => x.Priority).ToArray();
         }
 
-        public Castle.DynamicProxy.IInterceptor[] SelectInterceptors(Type type, MethodInfo method, Castle.DynamicProxy.IInterceptor[] interceptors)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

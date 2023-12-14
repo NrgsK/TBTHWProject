@@ -19,6 +19,7 @@ namespace Bussiness.Abstract
         IDataResult<List<ProductDetailDto>> GetProductDetails();
         IDataResult<Product> GetById(int productId);
         IResult Add(Product product);
+        IResult Update(Product product);
 
         //Restful --> HTTP(internet protokolü) --> 
         //Sisteme istekte bulunuyoruz
