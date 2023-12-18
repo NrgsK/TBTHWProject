@@ -4,8 +4,10 @@ using Bussiness.Abstract;
 using Bussiness.CCS;
 using Bussiness.Concrete;
 using Core.Utilities.Interceptors;
+using Core.Utilities.Security.JWT;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +27,13 @@ namespace Bussiness.DependencyResolvers.Autofac
             builder.RegisterType<CategoryManager>().As<ICategoryService>().SingleInstance(); //WebApi yerine burada kullanmamız bağlılığı azarltır.
             builder.RegisterType<EfCategoryDal>().As<ICategoryDal>().SingleInstance();
 
+            builder.RegisterType<UserManager>().As<IUserService>();
+            builder.RegisterType<EfUserDal>().As<IUserDal>();
+
+            builder.RegisterType<AuthManager>().As<IAuthService>();
+            builder.RegisterType<JwtHelper>().As<ITokenHelper>();
+
+            //builder.RegisterType<IHttpContextAccessor>().As<IHttpContextAccessor>();
 
             var assembly=System.Reflection.Assembly.GetExecutingAssembly();
             builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces().EnableInterfaceInterceptors(new Castle.DynamicProxy.ProxyGenerationOptions()

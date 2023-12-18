@@ -3,11 +3,15 @@ using Autofac.Extensions.DependencyInjection;
 using Bussiness.Abstract;
 using Bussiness.Concrete;
 using Bussiness.DependencyResolvers.Autofac;
+using Core.Utilities.Security.Encryption;
+using Core.Utilities.Security.JWT;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 
 internal class Program
 {
@@ -26,6 +30,24 @@ internal class Program
         //builder.Services.AddSingleton<IProductDal,EfProductDal>();
         //Bu konfigürasyonu api de yapmak doðru bir kullaným deðil - Autofac
         //CreateHostBuilder(args).Build().Run();
+
+        builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+        var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
+
+        builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidIssuer = tokenOptions.Issuer,
+                    ValidAudience = tokenOptions.Audience,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
+                };
+            });
 
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
@@ -46,6 +68,8 @@ internal class Program
         }
 
         app.UseHttpsRedirection();
+
+        app.UseAuthentication(); //middleware 
 
         app.UseAuthorization();
 

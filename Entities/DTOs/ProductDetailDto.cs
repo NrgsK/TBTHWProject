@@ -15,5 +15,4 @@ namespace Entities.DTOs
         public short UnitsInStock { get; set; }
 
     }
-    //DTO - Data Transformation Object
 }

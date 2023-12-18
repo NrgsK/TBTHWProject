@@ -1,4 +1,5 @@
 ﻿using Bussiness.Abstract;
+using Bussiness.BusinessAspects.Autofac;
 using Bussiness.CCS;
 using Bussiness.Constants;
 using Bussiness.ValidationRules.FluentValidation;
@@ -37,7 +38,8 @@ namespace Bussiness.Concrete
         //AOP : Uygulama hata verdiğinde çalıştırmak istediğin kodlar varsa bu yapıyı kullanırsın. 
         //Intenception - araya girme
 
-
+        //Claim
+        [SecuredOperation("product.add,admin")]
         [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {
